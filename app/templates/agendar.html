@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agendar Consulta</title>
+
+  <!-- Bootstrap + Google Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fc;
+      min-height: 100vh;
+
+    }
+
+    .navbar {
+      background-color: #06315f;
+      padding: 1rem 2rem;
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff !important;
+    }
+
+    .navbar-nav .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+      margin-left: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #d1e6ff !important;
+    }
+
+    .agendamento-container {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+    }
+
+    .agendamento-container h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #06315f;
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      font-weight: 600;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .form-control {
+      border-radius: 50px;
+      padding: 0.75rem 1.2rem;
+      font-size: 0.95rem;
+      background-color: #f9f9f9;
+      border: 1px solid #dee2e6;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+      background-color: #fff;
+    }
+
+    .btn-agendar {
+      margin-top: 1.5rem;
+      background-color: #007bff;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.75rem;
+      width: 100%;
+      border: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    }
+
+    .btn-agendar:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      color: #007bff;
+      transition: color 0.3s ease;
+    }
+
+    .btn-link:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Clínica Online</a>
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+<ul class="navbar-nav ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('views.home') }}">Início</a>
+  </li>
+
+  {% if current_user.is_authenticated and current_user.role != 'medico' %}
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('views.agendar') }}">Agendar Consulta</a>
+  </li>
+  {% endif %}
+
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('views.lista') }}">Lista de Consultas</a>
+  </li>
+
+
+  {% if current_user.is_authenticated %}
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('views.logout') }}">Sair</a>
+  </li>
+  {% else %}
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('views.login') }}">Login</a>
+  </li>
+  {% endif %}
+</ul>
+
+    </div>
+  </div>
+</nav>
+
+<div class="agendamento-container">
+  <h1>Agendar Consulta</h1>
+  <form method="POST">
+    <label for="medico" class="form-label">Escolha um Médico:</label>
+    <select id="medico" name="medico_id" class="form-control" required>
+      {% for medico in medicos %}
+        <option value="{{ medico.id }}">{{ medico.email }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="data_hora" class="form-label">Data e Hora da Consulta:</label>
+    <input type="datetime-local" id="data_hora" name="data_hora" class="form-control" required>
+
+    <button type="submit" class="btn-agendar">Agendar</button>
+  </form>
+
+  <a href="{{ url_for('views.lista') }}" class="btn-link">Ver Consultas Agendadas</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
