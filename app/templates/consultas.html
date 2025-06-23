@@ -188,6 +188,12 @@
     <a class="nav-link" href="{{ url_for('views.login') }}">Login</a>
   </li>
   {% endif %}
+  {% if current_user.is_authenticated %}
+<li class="nav-item">
+  <a class="nav-link" href="{{ url_for('views.alterar_senha') }}">Alterar Senha</a>
+</li>
+{% endif %}
+
 </ul>
 
     </div>
@@ -215,12 +221,14 @@
         <td data-label="Status">{{ consulta.status }}</td>
         <td data-label="Ações">
           {% if consulta.status == 'pendente' %}
+          {% if current_user.role == 'medico' %}
           <form action="{{ url_for('views.aceitar_consulta', consulta_id=consulta.id) }}" method="POST" class="d-inline">
             <button type="submit" class="btn btn-aceitar">Aceitar</button>
           </form>
           <form action="{{ url_for('views.recusar_consulta', consulta_id=consulta.id) }}" method="POST" class="d-inline">
             <button type="submit" class="btn btn-recusar">Recusar</button>
           </form>
+          {% endif %}
           {% else %}
           <span class="text-muted">Ação indisponível</span>
           {% endif %}
