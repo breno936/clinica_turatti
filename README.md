@@ -31,53 +31,46 @@ git clone https://github.com/seu-usuario/clinica-online.git
 cd clinica-online
 ```
 ### 2. Crie e ative o ambiente virtual
-bash
-Copiar
-Editar
+
 python -m venv venv
+
 Ativar no Windows:
-
-bash
-Copiar
-Editar
+```
 venv\Scripts\activate
+```
+
 Ativar no Linux/macOS:
-
-bash
-Copiar
-Editar
+```
 source venv/bin/activate
+```
 
-###3. Instale as dependências
-bash
-Copiar
-Editar
+### 3. Instale as dependências
+```
 pip install -r requirements.txt
+
+```
 Se não tiver o requirements.txt, instale manualmente:
 
-bash
-Copiar
-Editar
+```
 pip install flask flask_sqlalchemy flask_login flask_mail
+```
 
-###4. Configure o ambiente
+### 4. Configure o ambiente
 Crie um arquivo .env (ou edite diretamente o app/__init__.py) com suas configurações de e-mail, por exemplo:
 
-python
-Copiar
-Editar
+```
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'seuemail@gmail.com'
 app.config['MAIL_PASSWORD'] = 'sua_senha_de_app'
+```
 💡 Para usar e-mail com Gmail, ative a autenticação em dois fatores e gere uma senha de app.
 
 ###5. Rode o projeto
-bash
-Copiar
-Editar
+```
 flask run
+```
 Acesse no navegador: http://localhost:5000
 
 👥 Perfis de Usuário
