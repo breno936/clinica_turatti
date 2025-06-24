@@ -30,7 +30,7 @@ O sistema foi desenvolvido com foco em **simplicidade, usabilidade e organiza√ß√
 git clone https://github.com/seu-usuario/clinica-online.git
 cd clinica-online
 ```
-###2. Crie e ative o ambiente virtual
+### 2. Crie e ative o ambiente virtual
 bash
 Copiar
 Editar
